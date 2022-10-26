@@ -9,7 +9,7 @@ export default function SectionProduct({ products }) {
 				<H2 title='Nos derniers produits' />
 				<div className='pt-16 grid grid-cols-4 gap-3'>
 					{/* verifie si product */}
-					{products.length < 1 ? (
+					{!products ? (
 						<p>Chargement...</p>
 					) : (
 						products.map((product) => (

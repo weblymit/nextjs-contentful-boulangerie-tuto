@@ -5,7 +5,6 @@ import Layout from "../components/layout/Layout";
 import { createClient } from "contentful";
 
 export default function Home({ products }) {
-	console.log("products:", products.length);
 	return (
 		<Layout>
 			<Hero />
@@ -17,7 +16,7 @@ export default function Home({ products }) {
 	);
 }
 
-export async function getStaticProps(context) {
+export async function getStaticProps() {
 	// connexion a contentful
 	const client = createClient({
 		space: process.env.NEXT_PUBLIC_CONTENTFUL_SPACE_ID,
@@ -25,9 +24,14 @@ export async function getStaticProps(context) {
 	});
 
 	// recupere data
-	const datas = await client.getEntries({ content_type: "boulangerie" });
+	const datas = await client.getEntries({
+		content_type: "boulangerie",
+		limit: 4,
+		order: "sys.createdAt",
+	});
 
 	// Envoie la data dans les props
+
 	return {
 		props: {
 			products: datas.items,
